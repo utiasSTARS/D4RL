@@ -19,7 +19,7 @@ class RelocateEnvV0(mujoco_env.MujocoEnv, utils.EzPickle, offline_env.OfflineEnv
 
         # Override action_space to -1, 1
         self.action_space = spaces.Box(low=-1.0, high=1.0, dtype=np.float32, shape=self.action_space.shape)
-        
+
         # change actuator sensitivity
         self.sim.model.actuator_gainprm[self.sim.model.actuator_name2id('A_WRJ1'):self.sim.model.actuator_name2id('A_WRJ0')+1,:3] = np.array([10, 0, 0])
         self.sim.model.actuator_gainprm[self.sim.model.actuator_name2id('A_FFJ3'):self.sim.model.actuator_name2id('A_THJ0')+1,:3] = np.array([1, 0, 0])
@@ -70,7 +70,7 @@ class RelocateEnvV0(mujoco_env.MujocoEnv, utils.EzPickle, offline_env.OfflineEnv
         palm_pos = self.data.site_xpos[self.S_grasp_sid].ravel()
         target_pos = self.data.site_xpos[self.target_obj_sid].ravel()
         return np.concatenate([qp[:-6], palm_pos-obj_pos, palm_pos-target_pos, obj_pos-target_pos])
-       
+
     def reset_model(self):
         qp = self.init_qpos.copy()
         qv = self.init_qvel.copy()
@@ -124,3 +124,7 @@ class RelocateEnvV0(mujoco_env.MujocoEnv, utils.EzPickle, offline_env.OfflineEnv
                 num_success += 1
         success_percentage = num_success*100.0/num_paths
         return success_percentage
+
+    def render(self, *args, **kwargs):
+        # overwrite the default mjrl render which is just a pass
+        return self.mj_render()

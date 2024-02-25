@@ -30,7 +30,7 @@ class HammerEnvV0(mujoco_env.MujocoEnv, utils.EzPickle, offline_env.OfflineEnv):
         self.sim.model.actuator_gainprm[self.sim.model.actuator_name2id('A_FFJ3'):self.sim.model.actuator_name2id('A_THJ0')+1,:3] = np.array([1, 0, 0])
         self.sim.model.actuator_biasprm[self.sim.model.actuator_name2id('A_WRJ1'):self.sim.model.actuator_name2id('A_WRJ0')+1,:3] = np.array([0, -10, 0])
         self.sim.model.actuator_biasprm[self.sim.model.actuator_name2id('A_FFJ3'):self.sim.model.actuator_name2id('A_THJ0')+1,:3] = np.array([0, -1, 0])
-        
+
         self.target_obj_sid = self.sim.model.site_name2id('S_target')
         self.S_grasp_sid = self.sim.model.site_name2id('S_grasp')
         self.obj_bid = self.sim.model.body_name2id('Object')
@@ -52,7 +52,7 @@ class HammerEnvV0(mujoco_env.MujocoEnv, utils.EzPickle, offline_env.OfflineEnv):
         tool_pos = self.data.site_xpos[self.tool_sid].ravel()
         target_pos = self.data.site_xpos[self.target_obj_sid].ravel()
         goal_pos = self.data.site_xpos[self.goal_sid].ravel()
-        
+
         # get to hammer
         reward = - 0.1 * np.linalg.norm(palm_pos - obj_pos)
         # take hammer head to nail
@@ -133,3 +133,7 @@ class HammerEnvV0(mujoco_env.MujocoEnv, utils.EzPickle, offline_env.OfflineEnv):
                 num_success += 1
         success_percentage = num_success*100.0/num_paths
         return success_percentage
+
+    def render(self, *args, **kwargs):
+        # overwrite the default mjrl render which is just a pass
+        return self.mj_render()
