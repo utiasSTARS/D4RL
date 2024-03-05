@@ -57,6 +57,7 @@ setup(
             "hand_manipulation_suite/Adroit/resources/*",
             "hand_manipulation_suite/Adroit/resources/meshes/*",
             "hand_manipulation_suite/Adroit/resources/textures/*",
+            "hand_manipulation_suite/raw_human_demonstrations/*"
         ]
     },
     install_requires=[
