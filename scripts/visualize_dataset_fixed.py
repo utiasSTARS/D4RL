@@ -27,9 +27,6 @@ def main(env_name):
     raw_dataset = pickle.load(open(raw_demos_file, 'rb'))
 
     for path in raw_dataset:
-        dist_from_first_d4rl = np.linalg.norm(path['observations'][0] - dataset['observations'][0])
-        print(f"dist from d4rl first: {dist_from_first_d4rl}")
-
         env.reset()
         env.set_env_state(path['init_state_dict'])
         actions = path['actions']
