@@ -129,6 +129,6 @@ class DoorEnvV0(mujoco_env.MujocoEnv, utils.EzPickle, offline_env.OfflineEnv):
         success_percentage = num_success*100.0/num_paths
         return success_percentage
 
-    def render(self, *args, **kwargs):
-        # overwrite the default mjrl render which is just a pass
-        return self.mj_render()
+    # def render(self, *args, **kwargs):
+    #     # overwrite the default mjrl render which is just a pass
+    #     return self.mj_render()
