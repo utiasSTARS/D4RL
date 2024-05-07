@@ -23,7 +23,7 @@ def main(env_name):
     dataset = env.get_dataset()
 
     ds_str = f"{env_name.split('-human-v0')[0]}-v0_demos.pickle"
-    raw_demos_file = f"/media/stonehenge/users/trevor-ablett/lfebp/raw_hand_dapg_data/{ds_str}"
+    raw_demos_file = os.path.join(os.environ['VPACE_TOP_DIR'], "raw_hand_dapg_data", ds_str)
     raw_dataset = pickle.load(open(raw_demos_file, 'rb'))
 
     for path in raw_dataset:
